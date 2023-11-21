@@ -1,6 +1,7 @@
 ﻿using Bulky_Web_MVC.DATA;
 using Bulky_Web_MVC.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bulky_Web_MVC.Controllers
@@ -13,7 +14,7 @@ namespace Bulky_Web_MVC.Controllers
             _db = db;
         }
         public IActionResult Index()
-        
+
         {
             List<Category> objCategoryList = _db.Categories.ToList();
             return View(objCategoryList);
@@ -26,29 +27,29 @@ namespace Bulky_Web_MVC.Controllers
         [HttpPost]
         public IActionResult Create(Category obj)
         {
-            if(obj.Name == obj.DisplayOrder.ToString()) {
-                ModelState.AddModelError("name", "The Display Order cannot exactly match the Name. "); 
-            }            
+            if (obj.Name == obj.DisplayOrder.ToString()) {
+                ModelState.AddModelError("name", "The Display Order cannot exactly match the Name. ");
+            }
             if (ModelState.IsValid)
             {
                 _db.Categories.Add(obj);
                 _db.SaveChanges();
-                TempData["Success"] = "Category created successfully"; 
+                TempData["Success"] = "Category created successfully";
                 return RedirectToAction("Index");
             }
-            return View(); 
+            return View();
         }
 
         public IActionResult Edit(int? id)
         {
-            if(id==null || id ==0)
+            if (id == null || id == 0)
             {
-                return NotFound(); 
+                return NotFound();
             }
             Category? categoryFromDb = _db.Categories.Find(id);
             //Category? categoryFromDb1 = _db.Categories.FirstOrDefault(u=>u.Id==id);
             //Category? categoryFromDb12 = _db.Categories.Where(u => u.Id ==  id).FirstOrDefault();
-            if (categoryFromDb==null)
+            if (categoryFromDb == null)
             {
                 return NotFound();
             }
@@ -61,14 +62,20 @@ namespace Bulky_Web_MVC.Controllers
             {
                 ModelState.AddModelError("name", "The Display Order cannot exactly match the Name. ");
             }
+            Category? categoryFromDb = _db.Categories.Find(obj.Id);
+
             if (ModelState.IsValid)
             {
-                _db.Categories.Update(obj);
-                _db.SaveChanges();
-                TempData["Success"] = "Category Updated successfully";
-                return RedirectToAction("Index");
+            if (categoryFromDb.Name != obj.Name && categoryFromDb.DisplayOrder != obj.DisplayOrder)
+            {
+                    _db.Categories.Update(obj);
+                    _db.SaveChanges();
+                    TempData["Success"] = "Category Updated successfully";
+                    return RedirectToAction("Index"); 
+                }
+
             }
-            return View();
+                return View();
         }
 
         public IActionResult Delete(int? id)
