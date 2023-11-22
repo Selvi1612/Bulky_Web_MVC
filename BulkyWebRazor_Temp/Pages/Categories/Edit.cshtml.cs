@@ -2,6 +2,8 @@ using BulkyWebRazor_Temp.DATA;
 using BulkyWebRazor_Temp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Identity.Client;
+using System.Linq;
 
 namespace BulkyWebRazor_Temp.Pages.Categories
 {
@@ -15,22 +17,26 @@ namespace BulkyWebRazor_Temp.Pages.Categories
         {
             _db = db;
         }
+
+        Category inital_Data = new Category();
+
         public void OnGet(int? id)
         {
             if (id !=null && id != 0)
             {
                 Category = _db.Categories.Find(id); 
             }
+            
         }
         public IActionResult OnPost()
         {
             if (ModelState.IsValid)
             {
-                _db.Categories.Update(Category);
-                _db.SaveChanges();
-                TempData["Success"] = "Category Updated successfully";
-                return RedirectToPage("Index");
 
+                    _db.Categories.Update(Category);
+                    _db.SaveChanges();
+                    TempData["Success"] = "Category Updated successfully";
+                    return RedirectToPage("Index");
             }
             return Page(); 
         }
