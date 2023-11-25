@@ -1,5 +1,5 @@
-﻿using Bulky_Web_MVC.DATA;
-using Bulky_Web_MVC.Models;
+﻿using Bulky.DataAccess.DATA;
+using Bulky.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
@@ -62,17 +62,12 @@ namespace Bulky_Web_MVC.Controllers
             {
                 ModelState.AddModelError("name", "The Display Order cannot exactly match the Name. ");
             }
-            Category? categoryFromDb = _db.Categories.Find(obj.Id);
-
             if (ModelState.IsValid)
             {
-            if (categoryFromDb.Name != obj.Name && categoryFromDb.DisplayOrder != obj.DisplayOrder)
-            {
-                    _db.Categories.Update(obj);
-                    _db.SaveChanges();
-                    TempData["Success"] = "Category Updated successfully";
-                    return RedirectToAction("Index"); 
-                }
+                _db.Categories.Update(obj); 
+                _db.SaveChanges();
+                TempData["Success"] = "Category Updated successfully";
+                return RedirectToAction("Index"); 
 
             }
                 return View();
