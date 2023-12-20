@@ -21,7 +21,7 @@ namespace Bulky_Web_MVC.Areas.Admin.Controllers
             List<Category> objCategoryList = _unitOfWork.Category.GetAll().ToList();
             return View(objCategoryList);
         }
-
+        
         public IActionResult Create()
         {
             return View();

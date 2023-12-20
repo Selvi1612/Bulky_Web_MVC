@@ -730,6 +730,7 @@ progress {
     margin-bottom: 1rem;
     font-size: 0.875em;
     color: #8e8c84;
+    
 }
 
     .blockquote-footer::before {
@@ -4953,7 +4954,7 @@ textarea.form-control-lg {
 
         .card > .card-header + .list-group,
         .card > .list-group + .card-footer {
-            border-top: 0;
+            border-top: 5px
         }
 
 .card-body {
@@ -5081,7 +5082,7 @@ textarea.form-control-lg {
 
                 .card-group > .card:not(:last-child) .card-img-bottom,
                 .card-group > .card:not(:last-child) .card-footer {
-                    border-bottom-right-radius: 0;
+                    border-bottom-right-radius: 5px;
                 }
 
             .card-group > .card:not(:first-child) {
@@ -13879,4 +13880,29 @@ textarea.form-control-lg {
 .toast .btn-close,
 .offcanvas .btn-close {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23dfd7ca'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e");
+}
+
+.displayblock-footer{
+    display: block; 
+    padding: 
+    position: absolute;
+}
+
+.footerbar {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    color: white;
+    font-size: 12px;
+}
+
+a.nav-footer:link,
+a.nav-footer:visited {
+    color: white !important;
+}
+
+a.nav-footer:hover,
+a.nav-footer:focus {
+    color: black !important;
+    background-color: #E7E7E7 !important;
 }
